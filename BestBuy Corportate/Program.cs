@@ -2,16 +2,13 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-
-
-using System;
 using System.Collections.Generic;
 
 namespace BestBuy_Corportate
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -23,10 +20,12 @@ namespace BestBuy_Corportate
                 .Build();
             string connection = configBuilder.GetConnectionString("DefaultConnection");
 
-            Product prod = new Product(connection);
+            ProductRepository repo = new ProductRepository(connection);
 
-            List<string> names = prod.GetMyProductNames();
-            foreach(string name in names)
+            repo.Delete("iPhone 7");
+
+            List<string> names = repo.GetMyProductNames();
+            foreach (string name in names)
             {
                 Console.WriteLine(name);
             }
