@@ -10,10 +10,8 @@ namespace BestBuy_Corportate
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
-
-        private int id;
-
-        public int ID
+        public int ID { get; set; }
+        /*
         {
             get
             {
@@ -21,11 +19,11 @@ namespace BestBuy_Corportate
             }
             set
             {
-                id = ID;
+
             }
         }
 
-
+        */
         
 
     }

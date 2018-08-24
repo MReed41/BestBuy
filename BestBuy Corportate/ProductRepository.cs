@@ -59,14 +59,15 @@ namespace BestBuy_Corportate
 
         public void Update(Product product)
         {
-            MySqlConnection conn = new MySqlConnection("DefaultConnection");
+            MySqlConnection conn = new MySqlConnection(connectionString);
 
             using (conn)
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand();
+                MySqlCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = "UPDATE products " + "SET Name = @name, Price = @price " +
+                cmd.CommandText = "UPDATE products " +
+                                    "SET Name = @name, Price = @price " +
                                     "WHERE ProductId = @id;";
                 cmd.Parameters.AddWithValue("name", product.Name);
                 cmd.Parameters.AddWithValue("price", product.Price);

@@ -24,6 +24,10 @@ namespace BestBuy_Corportate
 
             repo.Delete("iPhone 7");
 
+            Product prod1 = new Product() { Name = "iPhone 10", Price = 600, ID = 9 };
+
+            repo.Update(prod1);
+
             List<string> names = repo.GetMyProductNames();
             foreach (string name in names)
             {
