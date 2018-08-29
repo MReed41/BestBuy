@@ -95,24 +95,10 @@ namespace BestBuy_Corportate
         public void Delete(string name)
         {
             MySqlConnection conn = new MySqlConnection(connectionString);
-            string prodID = "";
-            using (conn)
-            {
-                conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT sales.ProductID FROM sales " +
-                                    "LEFT JOIN Products " +
-                                        "ON sales.ProductID = Products.ProductID " +
-                                    "WHERE Name = @name;";
-                cmd.Parameters.AddWithValue("name", name);
 
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    prodID = dr["ProductID"].ToString();
-                }
-            }
-
+            Product product = GetProduct(name);
+            string prodID = product.ID.ToString();
+            
             using (conn)
             {
                 conn.Open();
@@ -128,5 +114,30 @@ namespace BestBuy_Corportate
             }
         }
 
+        public Product GetProduct(string name)
+        {
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ProductId, Name, Price " +
+                                  "FROM products " +
+                                  "WHERE Name = @name;";
+                cmd.Parameters.AddWithValue("name", name);
+
+                Product product = new Product();
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    product.ID = Convert.ToInt32(dr["ProductId"]);
+                    product.Name = dr["Name"].ToString();
+                    product.Price = Convert.ToDecimal(dr["Price"]);
+                }
+
+                return product;
+            }
+        }
     }
 }
