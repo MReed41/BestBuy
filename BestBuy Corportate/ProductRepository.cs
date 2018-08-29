@@ -23,7 +23,7 @@ namespace BestBuy_Corportate
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "select name from products";
+                cmd.CommandText = "SELECT name FROM products";
                 MySqlDataReader dr = cmd.ExecuteReader();
 
                 List<string> ProductNames = new List<string>();
@@ -85,7 +85,7 @@ namespace BestBuy_Corportate
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = "DELETE FROM products " + "WHERE ProductID = @id;";
+                cmd.CommandText = "DELETE FROM products WHERE ProductID = @id;";
                 cmd.Parameters.AddWithValue("id", id);
 
                 cmd.ExecuteNonQuery();
@@ -118,11 +118,11 @@ namespace BestBuy_Corportate
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = "DELETE FROM sales " + "WHERE ProductID = @id;";
+                cmd.CommandText = "DELETE FROM sales WHERE ProductID = @id;";
                 cmd.Parameters.AddWithValue("id", prodID);
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "DELETE FROM products " + "WHERE Name = @name;";
+                cmd.CommandText = "DELETE FROM products WHERE Name = @name;";
                 cmd.Parameters.AddWithValue("name", name);
                 cmd.ExecuteNonQuery();
             }
